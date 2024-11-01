@@ -1,23 +1,21 @@
-#
-#   Hello World client in Python
-#   Connects REQ socket to tcp://localhost:5555
-#   Sends "Hello" to server, expects "World" back
-#
+import json
 
-import zmq
+from client.client import Client
 
-context = zmq.Context()
+if __name__ == "__main__":
+    client = Client()
 
-#  Socket to talk to server
-print("Connecting to hello world server…")
-socket = context.socket(zmq.REQ)
-socket.connect("tcp://localhost:5555")
+    # Example OS command
+    command = {
+        "command_type": "os",
+        "command_name": "ping",
+        "parameters": ["127.0.0.1", "-c", "6"],
+    }
 
-#  Do 10 requests, waiting each time for a response
-for request in range(10):
-    print(f"Sending request {request} …")
-    socket.send(b"Hello")
+    response = client.send_command(command)
+    print(f"Response: {json.dumps(response, indent=2)}")
 
-    #  Get the reply.
-    message = socket.recv()
-    print(f"Received reply {request} [ {message} ]")
+    math_command = {"command_type": "compute", "expression": "(8 / 4) * 10"}
+    response = client.send_command(math_command)
+    print(f"Response: {json.dumps(response, indent=2)}")
+    client.stop()
