@@ -13,12 +13,12 @@ if __name__ == "__main__":
 
     print("Sending OS command...")
     response = client.send_command(os_command)
-    print(f"Response: {json.dumps(response, indent=2)}")
+    print(f"Response: {response}")
 
 
     math_command = {"command_type": "compute", "expression": "(2 + 2) * 10"}
 
     print("\nSending Math command...")
     response = client.send_command(math_command)
-    print(f"Response: {json.dumps(response, indent=2)}")
+    print(f"Response: {response}")
     client.stop()
