@@ -1,5 +1,3 @@
-import json
-
 from client.client import Client
 
 if __name__ == "__main__":
@@ -14,7 +12,6 @@ if __name__ == "__main__":
     print("Sending OS command...")
     response = client.send_command(os_command)
     print(f"Response: {response}")
-
 
     math_command = {"command_type": "compute", "expression": "(2 + 2) * 10"}
 
